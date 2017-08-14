@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lazyload image</title>
+    <style type="text/css">
+    body{
+        width:50%;
+        margin: auto;
+    }
+        img{
+            width:500px;
+            height:300px;
+            display: block;
+            margin:20px 0;
+        }
+    </style>
+</head>
+<body>
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<img src="" data-src="img/bear.jpg">
+<script type="text/javascript">
+    const imgs = document.body.querySelectorAll("img");
+    const H = window.innerHeight;
+
+    function getTop(e) {
+        let top = e.offsetTop;
+        console.log(top);
+        while (e = e.offsetParent) {
+            top += e.offsetTop;
+        }
+        return top;
+    }
+    function lazyload() {
+        let S = document.documentElement.scrollTop || document.body.scrollTop;
+        for (let i = 0; i < imgs.length; i++) {
+            if (imgs[i].getAttribute("data-src")) {
+                if (H + S - 200 > getTop(imgs[i])) {//为达到演示效果，这里H+S减去200，延后加载时机
+                    imgs[i].src = imgs[i].getAttribute("data-src");
+                    imgs[i].removeAttribute("data-src");
+                }
+            }
+        }
+    }
+    window.addEventListener("scroll", lazyload, false);
+    window.addEventListener("load",lazyload,false);
+</script>
+</body>
+</html>
